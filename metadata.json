@@ -1,0 +1,6 @@
+{
+  "name": "CRSN - Community Resource Sharing Network",
+  "description": "Peer-to-peer neighborhood resource borrowing and lending network with real-time lender notifications, accountability tracking, due dates, community trust ratings, and local impact metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

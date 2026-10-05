@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "users": {
+      "title": "users",
+      "description": "CRSN Community Neighbors and authentication profiles",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "locality": { "type": "string" },
+        "phone": { "type": "string" },
+        "ratingAverage": { "type": "number" },
+        "ratingCount": { "type": "number" },
+        "finesOwed": { "type": "number" },
+        "finesPaid": { "type": "number" },
+        "joinedDate": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "idVerificationStatus": { "type": "string" },
+        "idDocumentType": { "type": "string" },
+        "verificationDate": { "type": "string" }
+      },
+      "required": ["userId", "name", "locality"]
+    },
+    "items": {
+      "title": "items",
+      "description": "Community resources shared by neighbors",
+      "type": "object",
+      "properties": {
+        "itemId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "locality": { "type": "string" },
+        "isAvailable": { "type": "boolean" },
+        "borrowDurationDays": { "type": "number" },
+        "dailyFineRate": { "type": "number" },
+        "dateAdded": { "type": "string" },
+        "condition": { "type": "string" },
+        "pickupInstructions": { "type": "string" }
+      },
+      "required": ["itemId", "title", "category", "ownerId"]
+    },
+    "borrowRecords": {
+      "title": "borrowRecords",
+      "description": "Active and past community resource loans",
+      "type": "object",
+      "properties": {
+        "recordId": { "type": "string" },
+        "itemId": { "type": "string" },
+        "itemTitle": { "type": "string" },
+        "category": { "type": "string" },
+        "borrowerId": { "type": "string" },
+        "borrowerName": { "type": "string" },
+        "lenderId": { "type": "string" },
+        "lenderName": { "type": "string" },
+        "borrowDate": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "returnDate": { "type": ["string", "null"] },
+        "status": { "type": "string" },
+        "daysLate": { "type": "number" },
+        "fineAmount": { "type": "number" },
+        "finePaid": { "type": "boolean" },
+        "pickupNote": { "type": "string" },
+        "pickupSlot": { "type": "string" }
+      },
+      "required": ["recordId", "itemId", "borrowerId", "lenderId", "status"]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is signed in
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the record or resource
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Community users / profiles
+    match /users/{userId} {
+      allow read: if true; // Public for neighbor trust score & locality visibility
+      allow create, update: if isAuthenticated() && (request.auth.uid == userId || resource == null);
+      allow delete: if isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Shared items & tools
+    match /items/{itemId} {
+      allow read: if true; // Public catalog for community browsing
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated(); // Allowed for status updates (borrowed/returned) or owner edits
+      allow delete: if isAuthenticated() && (resource.data.ownerId == request.auth.uid || resource.data.ownerId == request.auth.token.email);
+    }
+
+    // Borrow records & agreements
+    match /borrowRecords/{recordId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAuthenticated();
+    }
+
+    // Notifications & messages
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isAuthenticated();
+    }
+
+    match /messages/{messageId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
